@@ -21,5 +21,15 @@
   <p>Lynis est un outil d'audit de sécurité pour les systèmes basés sur UNIX tels que Linux, macOS, BSD et autres.<br> Il effectue une analyse de sécurité approfondie et s'exécute sur le système lui-même.<br> L'objectif principal est de tester les défenses de sécurité et de fournir des conseils pour renforcer le système.</p>
 </div>
 
+<div class="jumbotron">
+    <p>Lancement de la commande</p>
+    <form id="commandForm" action="/execute_command" method="post">
+        <label for="command">Commande Lynis:</label>
+        <input type="text" id="command" name="command" required>
+        <button type="submit">Execute</button>
+    </form>
+
+    <div id="result"></div>
+</div>
 </body>
 </html>
