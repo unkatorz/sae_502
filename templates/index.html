@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>SAE_502</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>Projet SAé502 : Application de collecte d'informations sur les machines d'infrastructure</h1>
+  <p>HURET Florian; HONORÉ Matthieu; GILLÉ-PERRIER Pierre-Hadrien; NEVEU Gabin</p> 
+</div>
+  
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h3>Interface utilisateur</h3>
+      <p>Pour accéder à l'interface utilisateur, veuillez cliquez <a href="{{url_for('ui')}}">ici</a></p>
+      <p>Cette interface a été créer afin d'avoir un tableau de bord intuitif et de visualiser les informations collectés par l'application</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Audit de sécurité</h3>
+      <p>Pour accéder à l'interface audit de sécurité, veuillez cliquez <a href="{{url_for('audit')}}">ici</a></p>
+      <p>Cette interface a été créer afin de récupérer des informations spécifiques afin d'effectuer un audit de sécurité</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Surveillance des certificats SSL/TLS</h3>
+      <p>Pour accéder à l'interface surveillance des certificats, veuillez cliquez <a href="{{url_for('ssl')}}">ici</a></p>
+      <p>Cette interface a été créer afin de récupérer des informations spécifiques afin d'effectuer un audit de sécurité</p>
+      </div>
+  </div>
+</div>
+
+</body>
+</html>

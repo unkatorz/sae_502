@@ -1,0 +1,17 @@
+#Intialiser git
+git init
+
+#Ajout de tous les fichiers du repertoire de travail
+git add .
+
+#Ajout d'un fichier en particulier
+git add fichier.txt
+
+#Ajout d'un commit en lui donnant un nom
+git commit -m "Nom du commit"
+
+#Connexion au git distant
+git remote add origin https://github.com/unkatorz/sae_502.git
+
+#Envoi des fichiers précédent vers le repertoire main du git distant
+git push -u origin main
