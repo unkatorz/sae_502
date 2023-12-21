@@ -1,6 +1,9 @@
 from flask import Flask, request, render_template
 import subprocess
 import re
+import psutil  # Ajout de psutil ici
+import paramiko
+
 app = Flask(__name__)
 
 def remove_ansi_color_codes(text):
@@ -13,28 +16,44 @@ def home():
 
 @app.route('/ui')
 def ui():
-    return render_template('ui.html')
+    # Informations sur le CPU
+    cpu_percent = psutil.cpu_percent(interval=1, percpu=True)
+    cpu_cores = len(cpu_percent)
+
+    # Informations sur la mémoire
+    memory_stats = psutil.virtual_memory()
+
+    # Informations sur le réseau
+    network_stats = psutil.net_io_counters()
+
+    # Informations sur le stockage
+    disk_usage = psutil.disk_usage('/')
+
+    # Transmettez ces informations au modèle HTML
+    return render_template('ui.html', cpu_percent=cpu_percent, cpu_cores=cpu_cores,
+                           memory_stats=memory_stats, network_stats=network_stats,
+                           disk_usage=disk_usage)
+
+
 
 @app.route('/audit')
 def audit():
-    return render_template('audit.html')
 
+
+    return render_template('audit.html')
 @app.route('/ssl')
 def ssl():
     return render_template('ssl.html')
-
 
 @app.route('/execute_ssh_command', methods=['POST'])
 def execute_ssh_command():
     if request.method == 'POST':
         command = request.form['command']
-        hostname = '192.168.187.128'  # Remplacez par l'adresse de votre machine distante
-        username = 'root'        # Remplacez par votre nom d'utilisateur SSH
-        password = 'bonjour'       # Remplacez par votre mot de passe SSH (ou utilisez une méthode plus sécurisée)
+        hostname = '192.168.187.128'
+        username = 'root'
+        password = 'bonjour'
 
         try:
-            import paramiko
-
             # Établir la connexion SSH
             ssh = paramiko.SSHClient()
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())

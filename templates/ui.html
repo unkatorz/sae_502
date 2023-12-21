@@ -8,6 +8,9 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Inclure la bibliothèque Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -19,9 +22,37 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
-      <h3>Column 1</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+      <h3>System Information</h3>
+
+      <!-- Graphique CPU -->
+      <div style="width: 400px; height: 200px;">
+        <canvas id="cpuChart"></canvas>
+      </div>
+
+      <!-- Afficher les informations CPU -->
+      <p>CPU Cores: {{ cpu_cores }}</p>
+      <ul>
+        {% for percent in cpu_percent %}
+          <li>CPU Core {{ loop.index }} Usage: {{ percent }}%</li>
+        {% endfor %}
+      </ul>
+
+      <!-- Afficher les informations Mémoire en Mo -->
+      <p>Total Memory: {{ memory_stats.total // (1024*1024) }} MB</p>
+      <p>Used Memory: {{ memory_stats.used // (1024*1024) }} MB</p>
+      <p>Free Memory: {{ memory_stats.available // (1024*1024) }} MB</p>
+      <p>Memory Usage: {{ memory_stats.percent }}%</p>
+
+      <!-- Afficher les informations Réseau en Mo -->
+      <p>Total Bytes Sent: {{ network_stats.bytes_sent // (1024*1024) }} MB</p>
+      <p>Total Bytes Received: {{ network_stats.bytes_recv // (1024*1024) }} MB</p>
+
+      <!-- Afficher les informations Stockage en Go -->
+      <p>Total Disk Space: {{ disk_usage.total // (1024*1024*1024) }} GB</p>
+      <p>Used Disk Space: {{ disk_usage.used // (1024*1024*1024) }} GB</p>
+      <p>Free Disk Space: {{ disk_usage.free // (1024*1024*1024) }} GB</p>
+      <p>Disk Usage: {{ disk_usage.percent }}%</p>
+
     </div>
     <div class="col-sm-4">
       <h3>Column 2</h3>
@@ -35,6 +66,8 @@
     </div>
   </div>
 </div>
+
+<!-- ... (votre script Chart.js et autres scripts, si nécessaire) ... -->
 
 </body>
 </html>
