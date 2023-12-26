@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_from_directory
 import subprocess
+import os
 import re
 import psutil  # Ajout de psutil ici
 import paramiko
@@ -13,6 +14,11 @@ def remove_ansi_color_codes(text):
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/images/<path:filename>')
+def get_image(filename):
+    images_dir = os.path.join(os.getcwd(), 'images')
+    return send_from_directory(images_dir, filename)
 
 @app.route('/ui')
 def ui():
@@ -34,6 +40,14 @@ def ui():
                            memory_stats=memory_stats, network_stats=network_stats,
                            disk_usage=disk_usage)
 
+
+@app.route('/application')
+def application():
+    return render_template('application.html')
+
+@app.route('/a_propos')
+def a_propos():
+    return render_template('a_propos.html')
 
 
 @app.route('/audit')
@@ -74,4 +88,4 @@ def execute_ssh_command():
             return f"Erreur lors de l'exécution de la commande : {str(e)}"
 
 if __name__=='__main__':
-    app.run()
+    app.run(debug=True)

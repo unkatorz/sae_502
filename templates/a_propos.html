@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.0.1/remixicon.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'style.css') }}">
+    <title>SAé 502 | Application de collection d'informations sur les machines infrastructure</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">
+            <a href="#">
+                <img src="{{ url_for('get_image', filename='logo-2.png') }}">
+            </a>
+        </div>
+
+
+        <ul class="nav-links">
+            <li class="link"><a href="{{url_for('home')}}">Accueil</a></li>
+            <li class="link"><a href="{{url_for('application')}}">Application</a></li>
+            <li class="link"><a href="{{url_for('a_propos')}}">À propos</a></li>
+        </ul>
+
+    
+        <button class="btn">Sujet</button>
+    </nav>
+
+
+    <header class="container">
+        <div class="content">
+            <span class="blur"></span>
+            <span class="blur"></span>
+            <h4>Application de collection d'informations sur les machines infrastructure</h4>
+            <h1><span>SAé 502</span></h1>
+            <p>
+
+            </p>
+            <button class="btn">Par ici !</button>
+        </div>
+        <div class="image">
+            <img src="{{ url_for('get_image', filename='Cyber.jpg') }}">
+        </div>
+    </header>
+
+
+    <section class="container">
+        <h2 class="header">Nos fonctionnalités</h2>
+        <div class="features">
+            <div class="card">
+              <h4>Matthieu HONORÉ</h4>
+              <p>Pour accéder à l'interface utilisateur, veuillez cliquez <a href="{{url_for('ui')}}">ici</a></p>
+              <p>Cette interface a été créer afin d'avoir un tableau de bord intuitif et de visualiser les informations collectés par l'application</p>       
+            </div>
+            <div class="card">
+              <h4>Pierre-Hadrien GILLÉ-PERRIER</h4>
+              <p>Pour accéder à l'interface audit de sécurité, veuillez cliquez <a href="{{url_for('audit')}}">ici</a></p>
+              <p>Cette interface a été créer afin de récupérer des informations spécifiques afin d'effectuer un audit de sécurité</p>
+            </div>
+            <div class="card">
+              <h4>Florian HURET</h4>
+              <p>Pour accéder à l'interface surveillance des certificats, veuillez cliquez <a href="{{url_for('ssl')}}">ici</a></p>
+              <p>Cette interface a été créer afin de récupérer des informations spécifiques afin d'effectuer un audit de sécurité</p>        
+            </div>
+            <div class="card">
+                <h4>Gabin NEVEU</h4>
+                <p>Pour accéder à l'interface surveillance des certificats, veuillez cliquez <a href="{{url_for('ssl')}}">ici</a></p>
+                <p>Cette interface a été créer afin de récupérer des informations spécifiques afin d'effectuer un audit de sécurité</p>        
+              </div>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
