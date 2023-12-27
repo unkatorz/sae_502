@@ -45,28 +45,28 @@
 
 
     <section class="container">
-        <h2 class="header">Nos fonctionnalités</h2>
+        <h2 class="header">L'équipe du projet</h2>
         <div class="features">
             <div class="card">
               <h4>Matthieu HONORÉ</h4>
-              <p>Pour accéder à l'interface utilisateur, veuillez cliquez <a href="{{url_for('ui')}}">ici</a></p>
-              <p>Cette interface a été créer afin d'avoir un tableau de bord intuitif et de visualiser les informations collectés par l'application</p>       
+              <p>B.U.T. 3 R&T Cyber</p>
+              <img src="{{ url_for('get_image', filename='matthieu.jpeg') }}">
             </div>
             <div class="card">
               <h4>Pierre-Hadrien GILLÉ-PERRIER</h4>
-              <p>Pour accéder à l'interface audit de sécurité, veuillez cliquez <a href="{{url_for('audit')}}">ici</a></p>
-              <p>Cette interface a été créer afin de récupérer des informations spécifiques afin d'effectuer un audit de sécurité</p>
+              <p>B.U.T. 3 R&T Cyber</p>
+              <img src="{{ url_for('get_image', filename='ph.jpeg') }}">
             </div>
             <div class="card">
               <h4>Florian HURET</h4>
-              <p>Pour accéder à l'interface surveillance des certificats, veuillez cliquez <a href="{{url_for('ssl')}}">ici</a></p>
-              <p>Cette interface a été créer afin de récupérer des informations spécifiques afin d'effectuer un audit de sécurité</p>        
+              <p>B.U.T. 3 R&T Cyber</p>
+              <img src="{{ url_for('get_image', filename='florian.jpeg') }}">
             </div>
             <div class="card">
                 <h4>Gabin NEVEU</h4>
-                <p>Pour accéder à l'interface surveillance des certificats, veuillez cliquez <a href="{{url_for('ssl')}}">ici</a></p>
-                <p>Cette interface a été créer afin de récupérer des informations spécifiques afin d'effectuer un audit de sécurité</p>        
-              </div>
+                <p>B.U.T. 3 R&T Cyber</p>
+                <img src="{{ url_for('get_image', filename='gabin.jpeg') }}">
+            </div>
         </div>
     </section>
     <script src="script.js"></script>
