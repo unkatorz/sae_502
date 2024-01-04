@@ -4,6 +4,7 @@ import os
 import re
 import psutil  # Ajout de psutil ici
 import paramiko
+import time
 
 app = Flask(__name__)
 
@@ -63,9 +64,10 @@ def ssl():
 def execute_ssh_command():
     if request.method == 'POST':
         command = request.form['command']
-        hostname = '192.168.187.128'
-        username = 'root'
-        password = 'bonjour'
+        hostname = request.form['hote']
+        username = request.form['user']
+        password = request.form['passwd']
+        sudo_password = request.form['sudo_passwd']
 
         try:
             # Établir la connexion SSH
@@ -73,19 +75,34 @@ def execute_ssh_command():
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             ssh.connect(hostname, username=username, password=password)
 
-            # Exécuter la commande
-            stdin, stdout, stderr = ssh.exec_command(command)
+            # Exécuter la commande avec sudo
+            channel = ssh.invoke_shell()
+            channel.send(command + '\n')
+            while not channel.recv_ready():
+                pass
 
-            # Lire la sortie de la commande
-            resultat = stdout.read().decode('utf-8')
+            # Envoyer le mot de passe sudo
+            channel.send(sudo_password + '\n')
+            time.sleep(150)
 
-            # Fermer la connexion SSH
+            resultat = channel.recv(4096).decode('utf-8')
+
             ssh.close()
+
+           
             resultat = remove_ansi_color_codes(resultat)
+
             return "<pre>{}</pre>".format(resultat)
 
         except Exception as e:
             return f"Erreur lors de l'exécution de la commande : {str(e)}"
+
+# Fonction pour supprimer les codes de couleur ANSI de la sortie
+def remove_ansi_color_codes(text):
+    import re
+    ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+    return ansi_escape.sub('', text)
+
 
 if __name__=='__main__':
     app.run(debug=True)
