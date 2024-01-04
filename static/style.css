@@ -209,3 +209,23 @@ section .header{
     color: #1e40af;
 }
 
+footer{
+    position: relative;
+    display: grid;
+    gap: 2rem;
+}
+
+footer .column .logo{
+    max-width: 100px;
+    margin-bottom: 2rem;
+}
+
+footer .column p{
+    color: #fff;
+    margin: auto;
+    padding: 1rem;
+    max-width: 3000px;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
