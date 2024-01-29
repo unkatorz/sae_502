@@ -229,3 +229,71 @@ footer .column p{
     text-align: center;
 }
 
+.jumbotron h1{
+    margin-bottom: 0.5 rem;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.jumbotron p{
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.jumbotron h1 span{
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px #fff;
+}
+
+.container h3{
+    margin-bottom: 0.5 rem;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.container p{
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.container h3 span{
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px #fff;
+}
+.features{
+    color: #ccc;
+}
+
+.command{
+    background-color:  #303030;
+    color: white;
+}
+
+.commandbox{
+    border: 1px solid black;
+    background-color: white;
+}
+
+.commandbutton{
+    border: 1px solid white;
+    background-color: white;   
+}
+
+.info-cpu{
+    margin-bottom: 0.5 rem;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.info-cpu li{
+    font-size: 1.0rem;
+    font-weight: 100;
+    color: #fff;
+}
+
+.row {
+    column-count: 4;
+}
