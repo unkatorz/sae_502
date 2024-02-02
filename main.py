@@ -8,19 +8,24 @@ import time
 
 app = Flask(__name__)
 
+# Fonction pour supprimer les codes de couleur ANSI de la sortie
 def remove_ansi_color_codes(text):
-    ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
+    import re
+    ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
     return ansi_escape.sub('', text)
 
+# Route pour la page d'accueil
 @app.route('/')
 def home():
     return render_template('index.html')
 
+# Route pour récupérer les images
 @app.route('/images/<path:filename>')
 def get_image(filename):
     images_dir = os.path.join(os.getcwd(), 'images')
     return send_from_directory(images_dir, filename)
 
+# Route pour afficher les informations système
 @app.route('/ui')
 def ui():
     # Informations sur le CPU
@@ -41,7 +46,7 @@ def ui():
                            memory_stats=memory_stats, network_stats=network_stats,
                            disk_usage=disk_usage)
 
-
+# Routes pour les différentes fonctionnalités de l'application
 @app.route('/application')
 def application():
     return render_template('application.html')
@@ -62,6 +67,7 @@ def audit():
 def ssl():
     return render_template('ssl.html')
 
+# Route pour exécuter une commande SSH sur une machine distante
 @app.route('/execute_ssh_command', methods=['POST'])
 def execute_ssh_command():
     if request.method == 'POST':
@@ -88,15 +94,14 @@ def execute_ssh_command():
             time.sleep(60)
             while not channel.recv_ready():
                 pass
-            #resultat = channel.recv(4096).decode('utf-8')
 
+            # Copier le fichier de log Lynis
             channel.send('scp lynis.log root@192.168.21.1:/var/log/clients/'+hostname+'-lynis.log'+'\n')
             time.sleep(3)
             channel.send(password + '\n')
             time.sleep(5)
             ssh.close()
 
-           
             resultat = 'OK'
 
             return render_template('audit.html', resultat=execute_ssh_command)
@@ -104,6 +109,42 @@ def execute_ssh_command():
         except Exception as e:
             return f"Erreur lors de l'exécution de la commande : {str(e)}"
 
+
+@app.route('/execute_ssh_command2', methods=['POST'])
+def execute_ssh_command2():
+    if request.method == 'POST':
+        command = request.form['command']
+        hostname = request.form['hote']
+        username = request.form['user']
+        password = request.form['passwd']
+        sudo_password = request.form['sudo_passwd']
+
+        try:
+            # Établir la connexion SSH
+            ssh = paramiko.SSHClient()
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            ssh.connect(hostname, username=username, password=password)
+
+            # Exécuter la commande avec sudo
+            channel = ssh.invoke_shell()
+            channel.send('sudo ' + command + '\n')
+            while not channel.recv_ready():
+                pass
+
+            # Envoyer le mot de passe sudo
+            channel.send(sudo_password + '\n')
+            time.sleep(5)
+            while not channel.recv_ready():
+                pass
+
+            resultat = channel.recv(4096).decode('utf-8')
+
+            return render_template('ui.html', execute_ssh_command2=resultat)
+
+        except Exception as e:
+            return f"Erreur lors de l'exécution de la commande : {str(e)}"
+
+# Route pour afficher le contenu du fichier de log Lynis
 @app.route('/affichage_fichier_lynis', methods=['POST'])
 def affichage_fichier_lynis():
     log = request.form['IP_machine']
@@ -116,7 +157,7 @@ def affichage_fichier_lynis():
             contenu.append(lines)
     return render_template('audit.html', affichage_fichier_lynis=contenu)
 
-
+# Routes pour télécharger les fichiers de log Lynis et syslog
 @app.route('/download_lynis_ubuntu')
 def download_lynis_ubuntu():
     return send_file('/var/log/clients/192.168.21.10-lynis.log', as_attachment=True)
@@ -132,13 +173,6 @@ def download_syslog_ubuntu():
 @app.route('/download_syslog_centos')
 def download_syslog_centos():
     return send_file('/var/log/clients/192.168.21.20-syslog.log', as_attachment=True)
-# Fonction pour supprimer les codes de couleur ANSI de la sortie
-def remove_ansi_color_codes(text):
-    import re
-    ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
-    return ansi_escape.sub('', text)
-
 
 if __name__=='__main__':
     app.run(debug=True)
-
