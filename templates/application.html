@@ -49,7 +49,7 @@
         <div class="features">
             <div class="card">
               <h4>Interface utilisateur</h4>
-              <p>Pour accéder à l'interface utilisateur, veuillez cliquez <a href="{{url_for('ui')}}">ici</a></p>
+              <p>Pour accéder aux informations systèmes des machines, veuillez cliquez <a href="{{url_for('ui')}}">ici</a></p>
               <p>Cette interface a été créer afin d'avoir un tableau de bord intuitif et de visualiser les informations collectés par l'application</p>       
             </div>
             <div class="card">
@@ -57,6 +57,11 @@
               <p>Pour accéder à l'interface audit de sécurité, veuillez cliquez <a href="{{url_for('audit')}}">ici</a></p>
               <p>Cette interface a été créer afin de récupérer des informations spécifiques afin d'effectuer un audit de sécurité</p>
             </div>
+            <div class="card">
+                <h4>Visualisation des logs Rsyslog</h4>
+                <p>Pour accéder à l'interface Rsyslog, veuillez cliquez <a href="{{url_for('log')}}">ici</a></p>
+                <p>Cette interface a été créer afin de récupérer des informations systèmes des machines virtuelles</p>        
+              </div>
             <div class="card">
               <h4>Surveillance des certificats SSL/TLS</h4>
               <p>Pour accéder à l'interface surveillance des certificats, veuillez cliquez <a href="{{url_for('ssl')}}">ici</a></p>

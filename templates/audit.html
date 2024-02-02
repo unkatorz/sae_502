@@ -16,33 +16,11 @@
         </div>
 
 
-<<<<<<< HEAD
-<div class="jumbotron">
-    <p>Lancement de la commande</p>
-    <form id="commandForm" action="/execute_ssh_command" method="post">
-        <label for="command">Commande Lynis:</label>
-        <input type="text" id="command" name="command" required>
-        
-        <label for="command">Adresse d'hôte:</label>
-        <input type="text" id="command" name="hote" required>
-        
-        <label for="command">Nom User</label>
-        <input type="text" id="command" name="user" required>
-        
-        <label for="command">Mot de passe</label>
-        <input type="text" id="command" name="passwd" required>
-        <button type="submit">Execute</button>
-        <label for="command">Mot de passe Sudo</label>
-        <input type="text" id="command" name="sudo_passwd" required>
-        <button type="submit">Execute</button>
-    </form>
-=======
         <ul class="nav-links">
             <li class="link"><a href="{{url_for('home')}}">Accueil</a></li>
             <li class="link"><a href="{{url_for('application')}}">Application</a></li>
             <li class="link"><a href="{{url_for('a_propos')}}">À propos</a></li>
         </ul>
->>>>>>> 3bac225 (Amélioration ui.html, audit.html)
 
     
         <button class="btn">Sujet</button>
@@ -68,9 +46,43 @@
             <form class="command" id="commandForm" action="/execute_ssh_command" method="post">
                 <label class="command" for="command">Commande Lynis:</label>
                 <input class="commandbox" type="text" id="command" name="command" required>
-                <button class="commandbutton" type="submit">Execute</button>
+
+                <label class="command" for="command">Adresse d'hôte:</label>
+                <input class="commandbox" type="text" id="command" name="hote" required>
+        
+                <label class="command" for="command">Nom User</label>
+                <input class="commandbox" type="text" id="command" name="user" required>
+        
+                <label class="command" for="command">Mot de passe</label>
+                <input class="commandbox" type="password" id="command" name="passwd" required>
+                <label class="command" for="command">Mot de passe Sudo</label>
+                <input class="commandbox" type="password" id="command" name="sudo_passwd" required>
+                <button type="commandbutton">Execute</button>
             </form>
         </div>
+        {% if execute_ssh_command %}
+        <p id="commandForm"> {{ execute_ssh_command }}</p>
+        {% endif %}
+        <div>
+            <form class="command" id="Log" action="/affichage_fichier_lynis" method='post'>
+                <label class="command" for="Log">Afficher le fichier de log de quelle machine ? </label>
+                <input class="commandbox" type="text" for="Log" name="IP_machine" required>
+                <button class="commandbutton">Execute</button>
+            </form>
+        </div>
+        <br>
+        <br>
+        <p>Télécharger le fichier de log lynis :</p>
+        <a href="{{ url_for('download_lynis_ubuntu')}}">Ubuntu SSL Serveur</a>
+        <a href="{{ url_for('download_lynis_centos')}}">CentOS Client</a>
+        {% if affichage_fichier_lynis %}
+        {% for element in affichage_fichier_lynis %}
+            <p class='Log'>{{ element }}</p>
+        {% endfor %}
+        {% endif %}
+
+    
+        
     </section>
 
     <footer class="container">

@@ -23,7 +23,7 @@
         </ul>
 
     
-        <button class="btn">Sujet</button>
+        <button class="btn"><a class='button' href="{{ url_for('static', filename= 'SAE502.pdf') }}">Sujet</a></button>
     </nav>
 
 
@@ -33,10 +33,6 @@
             <span class="blur"></span>
             <h4>Application de collection d'informations sur les machines infrastructure</h4>
             <h1><span>SAé 502</span></h1>
-            <p>
-
-            </p>
-            <button class="btn">Par ici !</button>
         </div>
         <div class="image">
             <img src="{{ url_for('get_image', filename='Cyber.jpg') }}">
@@ -50,22 +46,26 @@
             <div class="card">
               <h4>Matthieu HONORÉ</h4>
               <p>B.U.T. 3 R&T Cyber</p>
+              <p>SCRUM Master & Développeur</p>
               <img src="{{ url_for('get_image', filename='matthieu.jpeg') }}">
             </div>
             <div class="card">
               <h4>Pierre-Hadrien GILLÉ-PERRIER</h4>
               <p>B.U.T. 3 R&T Cyber</p>
+              <p>Développeur</p>
               <img src="{{ url_for('get_image', filename='ph.jpeg') }}">
             </div>
             <div class="card">
               <h4>Florian HURET</h4>
               <p>B.U.T. 3 R&T Cyber</p>
+              <p>Rédacteur & Testeur</p>
               <img src="{{ url_for('get_image', filename='florian.jpeg') }}">
             </div>
             <div class="card">
-                <h4>Gabin NEVEU</h4>
-                <p>B.U.T. 3 R&T Cyber</p>
-                <img src="{{ url_for('get_image', filename='gabin.jpeg') }}">
+              <h4>Gabin NEVEU</h4>
+              <p>B.U.T. 3 R&T Cyber</p>
+              <p>Administrateur systèmes & réseaux</p>
+              <img src="{{ url_for('get_image', filename='gabin.jpeg') }}">
             </div>
         </div>
     </section>

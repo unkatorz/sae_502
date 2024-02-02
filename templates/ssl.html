@@ -1,40 +1,71 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.0.1/remixicon.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'style.css') }}">
+    <title>SAé 502 | Application de collection d'informations sur les machines infrastructure</title>
 </head>
 <body>
+    <nav>
+        <div class="nav-logo">
+            <a href="#">
+                <img src="{{ url_for('get_image', filename='logo-2.png') }}">
+            </a>
+        </div>
 
-<div class="jumbotron text-center">
-  <h1>My First Bootstrap Page</h1>
-  <p>Resize this responsive page to see the effect!</p> 
-</div>
-  
-<div class="container">
-  <div class="row">
-    <div class="col-sm-4">
-      <h3>Column 1</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Column 2</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Column 3</h3>        
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-  </div>
-</div>
 
+        <ul class="nav-links">
+            <li class="link"><a href="{{url_for('home')}}">Accueil</a></li>
+            <li class="link"><a href="{{url_for('application')}}">Application</a></li>
+            <li class="link"><a href="{{url_for('a_propos')}}">À propos</a></li>
+        </ul>
+
+    
+        <button class="btn">Sujet</button>
+    </nav>
+
+
+    <div class="container">
+      <div class="jumbotron">
+        <h1><span>Récupération de log système des machine virtuelles</span></h1>
+        <p>Récupération des informations spécifiques aux systèmes des machines virtuelles</p> 
+      </div>
+    </div>
+    <div class="container">
+      <h3></span>RSYSLOG</span></h3>
+      <p>Rsyslog est un logiciel libre utilisé sur des systèmes d'exploitation de type Unix transférant les messages des journaux d'événements sur un réseau IP.
+    </div>
+    <section class="container">
+        <h2 class="header">Log système</h2>
+        <br>
+        <br>
+        <p>Télécharger le fichier de log syslog :</p>
+        <a href="{{ url_for('download_syslog_ubuntu')}}">Ubuntu SSL Serveur</a>
+        <a href="{{ url_for('download_syslog_centos')}}">CentOS Client</a>
+    
+        
+    </section>
+
+    <footer class="container">
+        <span class="blur"></span>
+        <span class="blur"></span>
+        <div class="column">
+            <div class="logo">
+                <img src="{{ url_for('get_image', filename='logo-2.png') }}">
+            </div>
+            <p>
+                © 2023-2024 HONORÉ Matthieu, GILLÉ-PERRIER Pierre-Hadrien, 
+                HURET Florian, NEVEU Gabin. Tous droits réservés.
+                <br>
+                B.U.T. 3ème année Réseaux & Télécommunications option cybersécurité.
+                <br>
+                Application de collection d'informations sur les machines infrastructure.
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

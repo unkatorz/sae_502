@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, request, render_template, send_from_directory, send_file
 import subprocess
 import os
 import re
@@ -50,12 +50,14 @@ def application():
 def a_propos():
     return render_template('a_propos.html')
 
+@app.route('/log')
+def log():
+    return render_template('syslog.html')
 
 @app.route('/audit')
 def audit():
-
-
     return render_template('audit.html')
+
 @app.route('/ssl')
 def ssl():
     return render_template('ssl.html')
@@ -77,26 +79,59 @@ def execute_ssh_command():
 
             # Exécuter la commande avec sudo
             channel = ssh.invoke_shell()
-            channel.send(command + '\n')
+            channel.send('sudo' + command + '\n')
             while not channel.recv_ready():
                 pass
 
             # Envoyer le mot de passe sudo
             channel.send(sudo_password + '\n')
-            time.sleep(150)
+            time.sleep(60)
+            while not channel.recv_ready():
+                pass
+            #resultat = channel.recv(4096).decode('utf-8')
 
-            resultat = channel.recv(4096).decode('utf-8')
-
+            channel.send('scp lynis.log root@192.168.21.1:/var/log/clients/'+hostname+'-lynis.log'+'\n')
+            time.sleep(3)
+            channel.send(password + '\n')
+            time.sleep(5)
             ssh.close()
 
            
-            resultat = remove_ansi_color_codes(resultat)
+            resultat = 'OK'
 
-            return "<pre>{}</pre>".format(resultat)
+            return render_template('audit.html', resultat=execute_ssh_command)
 
         except Exception as e:
             return f"Erreur lors de l'exécution de la commande : {str(e)}"
 
+@app.route('/affichage_fichier_lynis', methods=['POST'])
+def affichage_fichier_lynis():
+    log = request.form['IP_machine']
+    chemin_log = os.path.join('/var/log/clients/', log+'-lynis.log')
+    with open(chemin_log, 'r', encoding='utf-8') as file:
+        contenu = []
+        file = file.read()
+        file = re.findall(r'(.*Suggestion:.*)|(.*Hardening index :.*)', file)
+        for lines in file:
+            contenu.append(lines)
+    return render_template('audit.html', affichage_fichier_lynis=contenu)
+
+
+@app.route('/download_lynis_ubuntu')
+def download_lynis_ubuntu():
+    return send_file('/var/log/clients/192.168.21.10-lynis.log', as_attachment=True)
+
+@app.route('/download_lynis_centos')
+def download_lynis_centos():
+    return send_file('/var/log/clients/192.168.21.20-lynis.log', as_attachment=True)
+
+@app.route('/download_syslog_ubuntu')
+def download_syslog_ubuntu():
+    return send_file('/var/log/clients/192.168.21.10-syslog.log', as_attachment=True)
+
+@app.route('/download_syslog_centos')
+def download_syslog_centos():
+    return send_file('/var/log/clients/192.168.21.20-syslog.log', as_attachment=True)
 # Fonction pour supprimer les codes de couleur ANSI de la sortie
 def remove_ansi_color_codes(text):
     import re
@@ -106,3 +141,4 @@ def remove_ansi_color_codes(text):
 
 if __name__=='__main__':
     app.run(debug=True)
+
