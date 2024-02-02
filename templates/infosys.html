@@ -61,23 +61,6 @@
         {% if execute_ssh_command2 %}
         <p id="commandForm"> {{ execute_ssh_command2 }}</p>
         {% endif %}
-        <div>
-            <form class="command" id="Log" action="/affichage_fichier_lynis" method='post'>
-                <label class="command" for="Log">Afficher le fichier de log de quelle machine ? </label>
-                <input class="commandbox" type="text" for="Log" name="IP_machine" required>
-                <button class="commandbutton">Execute</button>
-            </form>
-        </div>
-        <br>
-        <br>
-        <p>Télécharger le fichier de log lynis :</p>
-        <a href="{{ url_for('download_lynis_ubuntu')}}">Ubuntu SSL Serveur</a>
-        <a href="{{ url_for('download_lynis_centos')}}">CentOS Client</a>
-        {% if affichage_fichier_lynis %}
-        {% for element in affichage_fichier_lynis %}
-            <p class='Log'>{{ element }}</p>
-        {% endfor %}
-        {% endif %}
 
     
         
