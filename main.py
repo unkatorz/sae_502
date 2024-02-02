@@ -26,8 +26,8 @@ def get_image(filename):
     return send_from_directory(images_dir, filename)
 
 # Route pour afficher les informations système
-@app.route('/ui')
-def ui():
+@app.route('/infosys')
+def infosys():
     # Informations sur le CPU
     cpu_percent = psutil.cpu_percent(interval=1, percpu=True)
     cpu_cores = len(cpu_percent)
@@ -42,7 +42,7 @@ def ui():
     disk_usage = psutil.disk_usage('/')
 
     # Transmettez ces informations au modèle HTML
-    return render_template('ui.html', cpu_percent=cpu_percent, cpu_cores=cpu_cores,
+    return render_template('infosys.html', cpu_percent=cpu_percent, cpu_cores=cpu_cores,
                            memory_stats=memory_stats, network_stats=network_stats,
                            disk_usage=disk_usage)
 
@@ -139,7 +139,7 @@ def execute_ssh_command2():
 
             resultat = channel.recv(4096).decode('utf-8')
 
-            return render_template('ui.html', execute_ssh_command2=resultat)
+            return render_template('infosys.html', execute_ssh_command2=resultat)
 
         except Exception as e:
             return f"Erreur lors de l'exécution de la commande : {str(e)}"
