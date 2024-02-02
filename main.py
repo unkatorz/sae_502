@@ -157,7 +157,7 @@ def affichage_fichier_lynis():
             contenu.append(lines)
     return render_template('audit.html', affichage_fichier_lynis=contenu)
 
-# Routes pour télécharger les fichiers de log Lynis et syslog
+
 @app.route('/download_lynis_ubuntu')
 def download_lynis_ubuntu():
     return send_file('/var/log/clients/192.168.21.10-lynis.log', as_attachment=True)

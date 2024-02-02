@@ -29,21 +29,22 @@
 
     <div class="container">
       <div class="jumbotron">
-        <h1><span>Récupération de log système des machine virtuelles</span></h1>
-        <p>Récupération des informations spécifiques aux systèmes des machines virtuelles</p> 
+        <h1><span>Surveillance des certificats SSL</span></h1>
+        <p>Récupération de date d'expiration des certificats SSL</p> 
       </div>
     </div>
-    <div class="container">
-      <h3></span>RSYSLOG</span></h3>
-      <p>Rsyslog est un logiciel libre utilisé sur des systèmes d'exploitation de type Unix transférant les messages des journaux d'événements sur un réseau IP.
-    </div>
     <section class="container">
-        <h2 class="header">Log système</h2>
+        <h2 class="header">Surveillance du certifcat SSL du serveur apache</h2>
         <br>
         <br>
-        <p>Télécharger le fichier de log syslog :</p>
-        <a href="{{ url_for('download_syslog_ubuntu')}}">Ubuntu SSL Serveur</a>
-        <a href="{{ url_for('download_syslog_centos')}}">CentOS Client</a>
+        <p>Date d'expiration du certificat : </p>
+        <p>Ubuntu SSL Serveur</p>
+        <form class="command" id="commandForm" action="/surveillance_ssl_ubuntu" method="post">
+            <button type="commandbutton">Execute</button>
+        </form>
+        {% if surveillance_ssl_ubuntu %}
+        <p id="commandForm"> Date d'expiration SSL : {{ surveillance_ssl_ubuntu }}</p>
+        {% endif %}
     
         
     </section>
