@@ -117,6 +117,40 @@ def affichage_fichier_lynis():
     return render_template('audit.html', affichage_fichier_lynis=contenu)
 
 
+#openssl x509 -enddate -noout -in /etc/ssl/server.crt
+
+@app.route('/surveillance_ssl_ubuntu', methods=['POST'])
+def surveillance_ssl_ubuntu():
+    try:
+        # Établir la connexion SSH
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect('192.168.21.10', username='user', password='bonjour')
+
+        # Exécuter la commande avec sudo
+        channel = ssh.invoke_shell()
+        channel.send('sudo' + ' openssl x509 -enddate -noout -in /etc/ssl/server.crt' + '\n')
+        while not channel.recv_ready():
+            pass
+
+        # Envoyer le mot de passe sudo
+        channel.send('bonjour' + '\n')
+        time.sleep(10)
+        while not channel.recv_ready():
+            pass
+        resultat = channel.recv(4096).decode('utf-8')
+        resultat = re.findall(r'.*notAfter=.*', resultat)
+        resultat = str(resultat).split('=')[1]
+        time.sleep(3)
+        ssh.close()
+
+
+
+        return render_template('ssl.html', surveillance_ssl_ubuntu=resultat)
+
+    except Exception as e:
+        return f"Erreur lors de l'exécution de la commande : {str(e)}"
+
 @app.route('/download_lynis_ubuntu')
 def download_lynis_ubuntu():
     return send_file('/var/log/clients/192.168.21.10-lynis.log', as_attachment=True)
