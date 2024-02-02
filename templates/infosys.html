@@ -59,9 +59,10 @@
             </form>
         </div>
         {% if execute_ssh_command2 %}
-        <p id="commandForm"> {{ execute_ssh_command2 }}</p>
+        {% for element in execute_ssh_command2 %}
+            <p class='info'>{{ element }}</p>
+        {% endfor %}
         {% endif %}
-
     
         
     </section>

@@ -137,7 +137,21 @@ def execute_ssh_command2():
             while not channel.recv_ready():
                 pass
 
-            resultat = channel.recv(4096).decode('utf-8')
+            resultat_command = channel.recv(4096).decode('utf-8')
+            resultat = []
+            resultat.append(str(re.findall(r'Nom.*', resultat_command)))
+            resultat.append(str(re.findall(r'IP.*', resultat_command)))
+            resultat.append(str(re.findall(r'Informations sur le CPU.*', resultat_command)))
+            resultat.append(str(re.findall(r'Coeurs.*', resultat_command)))
+            resultat.append(str(re.findall(r'Utilisation CPU.*', resultat_command)))
+            resultat.append(str(re.findall(r'Informations sur la mémoire.*', resultat_command)))
+            resultat.append(str(re.findall(r'Mémoire.*', resultat_command)))
+            resultat.append(str(re.findall(r'Utilisation mémoire.*', resultat_command)))
+            resultat.append(str(re.findall(r'Informations sur le disque.*', resultat_command)))
+            resultat.append(str(re.findall(r'Espace.*', resultat_command)))
+            resultat.append(str(re.findall(r'Utilisation disque.*', resultat_command)))
+            print(resultat)
+            
 
             return render_template('infosys.html', execute_ssh_command2=resultat)
 
